@@ -1,0 +1,30 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="fastapi" />
+          <option value="python-dotenv" />
+          <option value="supabase" />
+          <option value="numpy" />
+          <option value="pandas" />
+          <option value="scipy" />
+          <option value="scikit-learn" />
+          <option value="xgboost" />
+          <option value="lightgbm" />
+          <option value="geopandas" />
+          <option value="shapely" />
+          <option value="pyproj" />
+          <option value="pyogrio" />
+          <option value="ipython" />
+          <option value="ipykernel" />
+          <option value="nbformat" />
+          <option value="nbclient" />
+          <option value="jupyter-client" />
+          <option value="jupyter-core" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

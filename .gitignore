@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# Python Virtual Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# FastAPI / Uvicorn cache
+.pytest_cache/
+
+# Datasets (Keep large image sets out of version control)
+/images/
+*.zip
+*.tar.gz
+
+# OS generated files
+.DS_Store
+Thumbs.db
