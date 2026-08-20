@@ -5,8 +5,8 @@ fastapi[standard]
 pydantic>=2.9.0
 pydantic-settings>=2.5.0
 
-# AI & Embeddings (Gemini API)
-google-generativeai>=0.4.1
+# AI & Embeddings (Gemini API - Upgraded SDK)
+google-genai>=0.2.0
 
 # Database & ORM (PostgreSQL - Updated for Python 3.13)
 SQLAlchemy>=2.0.29

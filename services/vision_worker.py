@@ -1,6 +1,7 @@
 import os
 import logging
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from pydantic import ValidationError
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from sqlalchemy.orm import Session
@@ -13,8 +14,8 @@ from metadata_schema import ImageMetadata
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Configure Gemini Flash
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Initialize the new Gemini Client (automatically uses GEMINI_API_KEY from .env)
+client = genai.Client()
 VISION_MODEL = "gemini-1.5-flash"
 CONFIDENCE_THRESHOLD = 0.85
 
@@ -44,11 +45,10 @@ def log_cost_entry(db: Session, model: str, operation: str, status: str, image_i
 )
 def call_gemini_vision(image_path: str) -> ImageMetadata:
     """
-    Sends the image file to Gemini Flash, enforcing structured JSON output
+    Sends the image file to Gemini Flash using the upgraded SDK, enforcing structured JSON output
     and validating against the ImageMetadata schema.
     """
-    uploaded_file = genai.upload_file(path=image_path)
-    model = genai.GenerativeModel(VISION_MODEL)
+    uploaded_file = client.files.upload(file=image_path)
 
     prompt = """
     Analyze this image carefully. Extract the primary subject, broad category, 
@@ -56,10 +56,12 @@ def call_gemini_vision(image_path: str) -> ImageMetadata:
     Return the result strictly as a valid JSON object matching the requested schema.
     """
 
-    response = model.generate_content(
-        [uploaded_file, prompt],
-        generation_config=genai.GenerationConfig(
+    response = client.models.generate_content(
+        model=VISION_MODEL,
+        contents=[uploaded_file, prompt],
+        config=types.GenerateContentConfig(
             response_mime_type="application/json",
+            response_schema=ImageMetadata,
         )
     )
 

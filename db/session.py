@@ -1,7 +1,11 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+<<<<<<< HEAD
 from models import Base
+=======
+from db.models import Base
+>>>>>>> 4f0d550fc133045edc00996e158143298ec987e8
 from dotenv import load_dotenv
 
 load_dotenv()
